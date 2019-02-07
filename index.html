@@ -1,24 +1,58 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <title>Twiddler by Liezel</title>
     <script src="jquery.js"></script>
     <script src="data_generator.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">  
+     
   </head>
+  
   <body>
+    <header>
+      <center>
+        <div class="header">
+          <h1 id="page-title">Twiddler</h1>
+      </div>
+      </center>
+      
+    </header>
+    
+    <h2>Newest Tweets</h2>
+    
+    <button id="tweets-btn">More Tweets</button>
+
     <script>
 
       $(document).ready(function(){
         var $body = $('body');
-        $body.html('');
-
+        // $body.html('');
+        
+        // streams.home is an array of all tweets from all the users you're following.
         var index = streams.home.length - 1;
         while(index >= 0){
           var tweet = streams.home[index];
-          var $tweet = $('<div></div>');
-          $tweet.text('@' + tweet.user + ': ' + tweet.message);
+          var $tweet = $('<div class="tweetpost"></div>');
+          $tweet.html('@' + '<a href="http://www.twitter.com" class="tweetuser">'+ tweet.user +'</a>' + 
+          '<br><br><big>' + tweet.message + '</big>' +
+          '<br><br><i><small>posted on ' + tweet.created_at + '</small></i>');
           $tweet.appendTo($body);
           index -= 1;
         }
+        
+        // button instructions
+      $("#tweets-btn").click(function() {
+        var index = streams.home.length - 1;
+        while(index >= 0){
+          var tweet = streams.home[index];
+          var $tweet = $('<div class="tweetpost"></div>');
+          $tweet.html('@' + '<a href="http://www.twitter.com" class="tweetuser">'+ tweet.user +'</a>' + 
+          '<br><br><big>' + tweet.message + '</big>' +
+          '<br><br><i><small>posted on ' + tweet.created_at + '</small></i>');
+          $tweet.appendTo($body);
+          index -= 1;
+        }
+      })
 
       });
 
