@@ -26,5 +26,10 @@
 
 *ListEntry*
 [ ] this.state{ like: false } // also a key in our database
-[ ] edit tweet { where: { username }}
-[ ] flagTweetAsInappropriate (delete)
+[ ] edit tweet { where: { username }} // IF USERNAME SAME
+[ ] delete tweet // IF USERNAME SAME
+
+ADVANCED
+[ ] display user's thoughts when username is clicked
+[ ] enable commenting
+[ ] enable reposting

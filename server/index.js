@@ -15,4 +15,4 @@ app.use('/api', router);
 
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
-app.listen(port, () => console.log(`---Connected to server, listening on port ${port}---`))
+app.listen(port, () => console.log(`--- Connected to server, listening on port ${port} ---`))
