@@ -8,23 +8,33 @@ class App extends Component {
         this.state = {
             usernameExists: false,
             username: '',
-            newThought: '',
+            thought: '',
             characterCount: 240,
             postedThoughts: []
         }
+        this.fetchPostedThoughts = this.fetchPostedThoughts.bind(this);
         this.handleUsername = this.handleUsername.bind(this);
         this.toggleUsernameExists = this.toggleUsernameExists.bind(this);
         this.handleNewThought = this.handleNewThought.bind(this);
+        this.handleSubmitButton = this.handleSubmitButton.bind(this);
     }
 
-    //component
+    componentDidMount() {
+        this.fetchPostedThoughts();
+    }
 
-    //fetchPostedThoughts
+    fetchPostedThoughts() {
+        axios
+        .get('/api')
+        .then(results => this.setState({
+            postedThoughts: results.data.reverse()
+        }))
+    }
 
     handleUsername(e) {
         this.setState({
             username: e.target.value
-        }, () => console.log(this.state.username))
+        })
     }
 
     toggleUsernameExists(e) {
@@ -36,12 +46,25 @@ class App extends Component {
 
     handleNewThought(e) {
         this.setState({
-            newThought: e.target.value,
+            thought: e.target.value,
             characterCount: this.state.characterCount - 1,
-        }, () => console.log(this.state.newThought, this.state.characterCount))
+        }, () => console.log(this.state.thought, this.state.characterCount))
     }
 
-    //handleSubmitButton
+    handleSubmitButton(e) {
+        e.preventDefault();
+        if (this.state.thought.length === 0) {
+            alert('Please enter a thought');
+            return;
+        }
+        axios
+        .post('/api', this.state)
+        .then(() => {
+            document.getElementById("textarea").value = '';
+            this.fetchPostedThoughts();
+            this.setState({ thought: '' })
+        })
+    }
 
     render() {
         return (
@@ -67,12 +90,17 @@ class App extends Component {
                     Let's Twiddle!
                     <form>
                         <fieldset>
-                        <textarea rows="4" cols="50" maxLength="240" name="textarea" onChange={this.handleNewThought} /><br />
-                        <button className="btn" name="post">Twiddle</button> characters remaining: {this.state.characterCount}
+                        <textarea rows="4" cols="50" maxLength="240" id="textarea" placeholder={`${this.state.username} is thinking about...`} onChange={this.handleNewThought} /><br />
+                        <button className="btn" name="post" onClick={this.handleSubmitButton}>Twiddle</button><p>characters remaining: {this.state.characterCount}</p>
                         </fieldset>
                     </form>
                 </div>
                 }
+
+                <div>
+                    <br />
+                    <List postedThoughts={this.state.postedThoughts}/>
+                </div>
 
 
             </div>

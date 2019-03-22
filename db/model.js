@@ -12,7 +12,7 @@ const Thoughts = sequelize.define(
     }
 )
 
-sequelize.sync()
+sequelize.sync({force: false})
 .then(() => console.log(`~*~~*~ Synced Thoughts table in Database ~*~~*~`))
 .catch(() => console.error(err))
 
