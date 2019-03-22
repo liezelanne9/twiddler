@@ -99,7 +99,7 @@ class App extends Component {
 
                 <div>
                     <br />
-                    <List postedThoughts={this.state.postedThoughts}/>
+                    <List postedThoughts={this.state.postedThoughts} fetchPostedThoughts={this.fetchPostedThoughts} />
                 </div>
 
 

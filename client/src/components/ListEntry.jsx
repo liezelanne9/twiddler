@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 class ListEntry extends Component {
     constructor(props) {
@@ -7,6 +8,7 @@ class ListEntry extends Component {
             liked: false
 
         }
+        this.handleDeleteButton = this.handleDeleteButton.bind(this);
         // PROPS: post.
         // username,
         // thought,
@@ -15,7 +17,12 @@ class ListEntry extends Component {
         // updatedAt,
     }
 
-    // 
+    handleDeleteButton(e) {
+        e.preventDefault();
+        axios
+        .delete(`/api/${this.props.post.id}`)
+        .then(this.props.fetchPostedThoughts)
+    }
 
     render() {
         return (
@@ -24,9 +31,9 @@ class ListEntry extends Component {
                     <legend className="username">{this.props.post.username}</legend>
                     <p className="postedThought">{this.props.post.thought.trim()}</p><br />
                     <p className="postDate">posted {this.props.post.createdAt}</p>
-                </fieldset>
                 <button>Edit</button>
-                <button>Delete</button>
+                <button onClick={this.handleDeleteButton}>Delete</button>
+                </fieldset>
             </div>
         )
     }

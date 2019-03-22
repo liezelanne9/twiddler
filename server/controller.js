@@ -18,19 +18,20 @@ const controller = {
         let { thought } = req.body;
         let { id } = req.params;
         db.update({ thought }, { where: { id } })
-        .then(data => res.status(202).send(`${username} updated thought successfully`))
+        .then(data => res.status(202).send(`updated thought successfully`))
         .catch(err => res.status(404).send(`error updating ${username}'s thought`, err))
     },
 
     deleteThought: (req, res) => {
         let { id } = req.params;
         db.destroy({ where: { id } })
-        .then(data => res.status(202).send(`${username} deleted thought successfully`))
+        .then(data => res.status(202).send(`deleted thought successfully`))
         .catch(err => res.status(404).send(`error deleting ${username}'s thought`, err))
     },
 
     getUsersThoughts: (req, res) => {
-        db.findAll({ where: { username} })
+        let { username } = req.params;
+        db.findAll({ where: { username } })
         .then(data => res.status(200).send(data))
         .catch(err => res.status(404).send(`error getting ${username}'s thoughts`, err))
     }
