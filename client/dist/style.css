@@ -1,0 +1,37 @@
+body {
+    background: #EAF3ED;
+    /* color: #fff; */
+    font-size: 14px;
+    font-family: "Segoe UI";
+    max-width: 500px;
+    margin: auto;
+    line-height: 20px;
+    overflow-y: scroll;
+}
+
+header {
+    background-color: #f5f8fa;
+    height: 25px;
+    width: 100%;
+    /* border-style: solid;
+    border-color: #99ccff; */
+}
+
+.tweetpost {
+    background-color: #f5f8fa;
+    border: 1px solid #e6ecf0;
+    padding: 15px;
+    line-height: 16px;
+}
+
+.tweetuser {
+    color: #657786;
+    font-size: 16px;
+}
+
+.header {
+    font-size: 18px;
+    color: #99ccff;
+    font-family: Georgia, serif;
+}
+
