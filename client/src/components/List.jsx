@@ -6,7 +6,7 @@ const List = (props) => {
         <div>
             <h4 id="newTweets">New Tweets</h4>
             <div>
-                {props.postedThoughts.map(post => <ListEntry post={post} fetchPostedThoughts={props.fetchPostedThoughts}/>)}
+                {props.postedThoughts.map((post, i) => <ListEntry key={i} post={post} fetchPostedThoughts={props.fetchPostedThoughts}/>)}
             </div>
         </div>
     )

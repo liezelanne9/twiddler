@@ -6,7 +6,7 @@ class ListEntry extends Component {
         super(props);
         this.state = {
             editMode: false,
-            editField: '',
+            editField: this.props.post.thought,
             liked: false
 
         }
@@ -22,22 +22,25 @@ class ListEntry extends Component {
         // updatedAt,
     }
 
+
     handleEditButton(e) {
-        e.preventDefault();    
-        this.setState({ editMode: true })
+        e.preventDefault();
+        this.setState({ 
+            editMode: !this.state.editMode 
+        }, () => console.log(this.state.editMode))
     }
 
     handleEditField (e) {
         this.setState({
             editField: e.target.value
-        })
+        }, () => console.log(this.state.editField))
     }
 
     handleSaveEditButton(e) {
-        e.preventDefault();
+        this.handleEditButton(e);
         let thought = this.state.editField;
         axios
-        .delete(`/api/${this.props.post.id}`, { thought })
+        .put(`/api/${this.props.post.id}`, { thought })
         .then(this.props.fetchPostedThoughts)
     }
 
@@ -56,16 +59,17 @@ class ListEntry extends Component {
                     
                     {!this.state.editMode &&
                     <div>
-                        <p className="postedThought">{this.props.post.thought.trim()}</p><br />
-                        <button>Edit</button>
-                        <button onClick={this.handleDeleteButton}>Delete</button>
+                        <p className="postedThought">{this.props.post.thought}</p><br />
+                        <button className="btn" onClick={this.handleEditButton}>Edit</button>
+                        <button className="btn" onClick={this.handleDeleteButton}>Delete</button>
                     </div>
                     }
                     
                     {this.state.editMode &&
                     <div>
-                        <textarea rows="4" cols="50" maxLength="240" value={`${this.props.thought}`} onChange={this.handleEditField} /><br />
+                        <textarea rows="4" cols="50" maxLength="240" value={this.state.editField} onChange={this.handleEditField} /><br />
                         <button onClick={this.handleSaveEditButton}>Save</button>
+                        <button onClick={this.handleEditButton}>Cancel</button>
                     </div>
                     }
 
